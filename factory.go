@@ -52,10 +52,14 @@ func NewFactory(options ...*Options) *Factory {
 func (f *Factory) NewHttpRequestDoer() HttpRequestDoer {
 	f.init()
 
+	ua := f.options.UserAgent
+	if ua == "" {
+		ua = DefaultUserAgent
+	}
 	return &sacloudhttp.Client{
 		AccessToken:       f.options.AccessToken,
 		AccessTokenSecret: f.options.AccessTokenSecret,
-		UserAgent:         f.options.UserAgent,
+		UserAgent:         ua,
 		AcceptLanguage:    f.options.AcceptLanguage,
 		Gzip:              f.options.Gzip,
 		CheckRetryFunc:    f.checkRetryFn(),

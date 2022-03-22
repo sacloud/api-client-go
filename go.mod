@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/hashicorp/go-retryablehttp v0.7.0
 	github.com/sacloud/go-http v0.0.4
-	github.com/sacloud/sacloud-go/pkg v0.0.0-20220310002004-ab494c9c1c6d
+	github.com/sacloud/packages-go v0.0.1
 	github.com/stretchr/testify v1.7.0
 )
 

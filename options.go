@@ -20,7 +20,7 @@ import (
 
 	"github.com/sacloud/api-client-go/profile"
 	sacloudhttp "github.com/sacloud/go-http"
-	"github.com/sacloud/sacloud-go/pkg/envvar"
+	"github.com/sacloud/packages-go/envvar"
 )
 
 // Options sacloudhttp.Clientを作成する際のオプション

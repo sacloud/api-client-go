@@ -155,6 +155,9 @@ func MergeOptions(opts ...*Options) *Options {
 		}
 
 		// Note: bool値は一度trueにしたらMergeでfalseになることがない
+		if opt.Gzip {
+			merged.Gzip = true
+		}
 		if opt.Trace {
 			merged.Trace = true
 		}
@@ -178,6 +181,7 @@ func OptionsFromEnv() *Options {
 		AccessTokenSecret: envvar.StringFromEnv("SAKURACLOUD_ACCESS_TOKEN_SECRET", ""),
 
 		AcceptLanguage: envvar.StringFromEnv("SAKURACLOUD_ACCEPT_LANGUAGE", ""),
+		Gzip:           envvar.StringFromEnv("SAKURACLOUD_GZIP", "") != "",
 
 		HttpRequestTimeout:   envvar.IntFromEnv("SAKURACLOUD_API_REQUEST_TIMEOUT", 0),
 		HttpRequestRateLimit: envvar.IntFromEnv("SAKURACLOUD_API_REQUEST_RATE_LIMIT", 0),
@@ -210,6 +214,7 @@ func OptionsFromProfile(profileName string) (*Options, error) {
 		AccessToken:          config.AccessToken,
 		AccessTokenSecret:    config.AccessTokenSecret,
 		AcceptLanguage:       config.AcceptLanguage,
+		Gzip:                 config.Gzip,
 		HttpRequestTimeout:   config.HTTPRequestTimeout,
 		HttpRequestRateLimit: config.HTTPRequestRateLimit,
 		RetryMax:             config.RetryMax,

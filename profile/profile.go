@@ -140,6 +140,8 @@ type ConfigValue struct {
 	UserAgent string `json:",omitempty"`
 	// AcceptLanguage リクエスト時のAccept-Languageヘッダ
 	AcceptLanguage string
+	// Gzip Gzip圧縮の有効化
+	Gzip bool
 
 	// RetryMax 423/503時のリトライ回数
 	RetryMax int

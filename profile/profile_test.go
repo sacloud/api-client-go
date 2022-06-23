@@ -29,13 +29,13 @@ import (
 )
 
 func init() {
-	os.Setenv(DirectoryNameEnv, "/tmp/.usacloud") // nolint
+	os.Setenv(DirectoryNameEnv, "/tmp/.usacloud")
 }
 
 func Test_baseDir(t *testing.T) {
-	os.Unsetenv(DirectoryNameEnv) // nolint
+	os.Unsetenv(DirectoryNameEnv)
 	defer func() {
-		os.Setenv(DirectoryNameEnv, "/tmp/.usacloud") // nolint
+		os.Setenv(DirectoryNameEnv, "/tmp/.usacloud")
 	}()
 
 	t.Run(fmt.Sprintf("without %s env", DirectoryNameEnv), func(t *testing.T) {
@@ -236,8 +236,8 @@ func Test_LoadWithExtendedConfig(t *testing.T) {
 
 func initConfigFiles() func() {
 	p := "/tmp/.usacloud"
-	os.MkdirAll(p, 0700)           // nolint
-	os.Setenv(DirectoryNameEnv, p) // nolint
+	os.MkdirAll(p, 0700) // nolint
+	os.Setenv(DirectoryNameEnv, p)
 
 	for _, prof := range testTargetProfiles() {
 		p, _ := ConfigFilePath(prof.profileName)
@@ -252,7 +252,7 @@ func initConfigFiles() func() {
 	return func() {
 		for _, prof := range testTargetProfiles() {
 			p, _ := ConfigFilePath(prof.profileName)
-			os.RemoveAll(filepath.Dir(p)) // nolint
+			os.RemoveAll(filepath.Dir(p))
 		}
 	}
 }
@@ -271,9 +271,9 @@ func Test_CurrentName(t *testing.T) {
 	profNameFile := filepath.Join(homeDir, configDirName, currentFileName)
 
 	os.Mkdir(configDir, 0755) // nolint
-	os.Remove(profNameFile)   // nolint
+	os.Remove(profNameFile)
 	defer func() {
-		os.Remove(profNameFile) // nolint
+		os.Remove(profNameFile)
 	}()
 
 	t.Run("Should use default", func(t *testing.T) {
@@ -317,9 +317,9 @@ func Test_SetCurrentName(t *testing.T) {
 	profNameFile := filepath.Join(homeDir, configDirName, currentFileName)
 
 	os.Mkdir(configDir, 0755) // nolint
-	os.Remove(profNameFile)   // nolint
+	os.Remove(profNameFile)
 	defer func() {
-		os.Remove(profNameFile) // nolint
+		os.Remove(profNameFile)
 	}()
 
 	t.Run("Default profile", func(t *testing.T) {

@@ -380,7 +380,7 @@ func cleanupProfileName(profileName string) string {
 	targets := []string{"　", "\t", "\n"}
 	res := profileName
 	for _, s := range targets {
-		res = strings.Replace(res, s, "", -1)
+		res = strings.ReplaceAll(res, s, "")
 	}
 	return strings.Trim(res, " ")
 }

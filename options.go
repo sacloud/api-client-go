@@ -97,9 +97,6 @@ func DefaultOption() (*Options, error) {
 // それも空の場合は通常のプロファイル処理(~/.usacloud/currentファイルから読み込み)される。
 // 同じ項目を複数箇所で指定していた場合、環境変数->プロファイルの順で上書きされたものが返される
 func DefaultOptionWithProfile(profileName string) (*Options, error) {
-	if profileName == "" {
-		profileName = envvar.StringFromEnvMulti([]string{"SAKURACLOUD_PROFILE", "USACLOUD_PROFILE"}, "")
-	}
 	fromProfile, err := OptionsFromProfile(profileName)
 	if err != nil {
 		return nil, err
@@ -195,8 +192,15 @@ func OptionsFromEnv() *Options {
 }
 
 // OptionsFromProfile 指定のプロファイルからCallerOptionsを組み立てて返す
-// プロファイル名に空文字が指定された場合はカレントプロファイルが利用される
+//
+// プロファイルは引数を優先し、空の場合は環境変数`SAKURACLOUD_PROFILE`または`USACLOUD_PROFILE`が利用され、
+// それも空の場合は通常のプロファイル処理(~/.usacloud/currentファイルから読み込み)される。
 func OptionsFromProfile(profileName string) (*Options, error) {
+	// 引数がからの場合はまず環境変数から
+	if profileName == "" {
+		profileName = envvar.StringFromEnvMulti([]string{"SAKURACLOUD_PROFILE", "USACLOUD_PROFILE"}, "")
+	}
+	// それも空ならプロファイルのcurrentファイルから
 	if profileName == "" {
 		current, err := profile.CurrentName()
 		if err != nil {

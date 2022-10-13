@@ -236,7 +236,7 @@ func Test_LoadWithExtendedConfig(t *testing.T) {
 
 func initConfigFiles() func() {
 	p := "/tmp/.usacloud"
-	os.MkdirAll(p, 0700) // nolint
+	os.MkdirAll(p, 0700) //nolint
 	os.Setenv(DirectoryNameEnv, p)
 
 	for _, prof := range testTargetProfiles() {
@@ -270,7 +270,7 @@ func Test_CurrentName(t *testing.T) {
 	configDir := filepath.Join(homeDir, configDirName)
 	profNameFile := filepath.Join(homeDir, configDirName, currentFileName)
 
-	os.Mkdir(configDir, 0755) // nolint
+	os.Mkdir(configDir, 0755) //nolint
 	os.Remove(profNameFile)
 	defer func() {
 		os.Remove(profNameFile)
@@ -316,7 +316,7 @@ func Test_SetCurrentName(t *testing.T) {
 	configDir := filepath.Join(homeDir, configDirName)
 	profNameFile := filepath.Join(homeDir, configDirName, currentFileName)
 
-	os.Mkdir(configDir, 0755) // nolint
+	os.Mkdir(configDir, 0755) //nolint
 	os.Remove(profNameFile)
 	defer func() {
 		os.Remove(profNameFile)

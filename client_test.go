@@ -52,7 +52,7 @@ func TestClient(t *testing.T) {
 	data, _ := io.ReadAll(resp.Body)
 
 	var responseData map[string]interface{}
-	json.Unmarshal(data, &responseData) // nolint
+	json.Unmarshal(data, &responseData) //nolint
 
 	zoneInfo := responseData["Zone"].(map[string]interface{})
 

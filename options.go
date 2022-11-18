@@ -101,7 +101,7 @@ func DefaultOptionWithProfile(profileName string) (*Options, error) {
 	if err != nil {
 		return nil, err
 	}
-	return MergeOptions(OptionsFromEnv(), fromProfile, defaultOption), nil
+	return MergeOptions(defaultOption, OptionsFromEnv(), fromProfile), nil
 }
 
 var defaultOption = &Options{

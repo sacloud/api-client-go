@@ -99,7 +99,8 @@ func (f *Factory) init() {
 
 		if f.options.Trace {
 			f.httpClient.Transport = &sacloudhttp.TracingRoundTripper{
-				Transport: f.httpClient.Transport,
+				Transport:       f.httpClient.Transport,
+				OutputOnlyError: f.options.TraceOnlyError,
 			}
 		}
 	})

@@ -17,6 +17,7 @@ package client
 import (
 	"context"
 	"net/http"
+	"strings"
 
 	"github.com/sacloud/api-client-go/profile"
 	sacloudhttp "github.com/sacloud/go-http"
@@ -59,6 +60,8 @@ type Options struct {
 
 	// Trace HTTPリクエスト/レスポンスのトレースログ(ダンプ)出力
 	Trace bool
+	// TraceOnlyError HTTPリクエスト/レスポンスのトレースログ(ダンプ)出力で非200番台のレスポンス時のみ出力する
+	TraceOnlyError bool
 
 	// RequestCustomizers リクエスト前に*http.Requestのカスタマイズを行うためのfunc
 	RequestCustomizers []sacloudhttp.RequestCustomizer
@@ -158,6 +161,9 @@ func MergeOptions(opts ...*Options) *Options {
 		if opt.Trace {
 			merged.Trace = true
 		}
+		if opt.TraceOnlyError {
+			merged.TraceOnlyError = true
+		}
 		if len(opt.RequestCustomizers) > 0 {
 			merged.RequestCustomizers = opt.RequestCustomizers
 		}
@@ -187,7 +193,8 @@ func OptionsFromEnv() *Options {
 		RetryWaitMax: envvar.IntFromEnv("SAKURACLOUD_RETRY_WAIT_MAX", 0),
 		RetryWaitMin: envvar.IntFromEnv("SAKURACLOUD_RETRY_WAIT_MIN", 0),
 
-		Trace: envvar.StringFromEnv("SAKURACLOUD_TRACE", "") != "",
+		Trace:          envvar.StringFromEnv("SAKURACLOUD_TRACE", "") != "",
+		TraceOnlyError: strings.ToLower(envvar.StringFromEnv("SAKURACLOUD_TRACE", "")) == "error",
 	}
 }
 
@@ -225,7 +232,7 @@ func OptionsFromProfile(profileName string) (*Options, error) {
 		RetryWaitMax:         config.RetryWaitMax,
 		RetryWaitMin:         config.RetryWaitMin,
 		Trace:                config.EnableHTTPTrace(),
-
-		profileConfigValue: &config,
+		TraceOnlyError:       strings.ToLower(config.TraceMode) == "error",
+		profileConfigValue:   &config,
 	}, nil
 }

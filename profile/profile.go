@@ -206,7 +206,7 @@ func EnableAPITrace(strTraceMode string) bool {
 	}
 
 	// TraceModeが"http"の場合はfalseにする(TraceMode=1などの場合はAPI/HTTP両方が有効になる)
-	if traceMode == EnableHTTPTraceWord {
+	if traceMode == EnableHTTPTraceWord || traceMode == "error" {
 		return false
 	}
 	return true

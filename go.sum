@@ -11,8 +11,8 @@ github.com/hashicorp/go-retryablehttp v0.7.2 h1:AcYqCvkpalPnPF2pn0KamgwamS42TqUD
 github.com/hashicorp/go-retryablehttp v0.7.2/go.mod h1:Jy/gPYAdjqffZ/yFGCFV2doI5wjtH1ewM9u8iYVjtX8=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/sacloud/go-http v0.1.5 h1:Ov1Vr4Olf0P+FG2okmpSaftCQnyHoCKZtbCC6RlNZUI=
-github.com/sacloud/go-http v0.1.5/go.mod h1:jlBMvkz4PuAelewTMOVzNQVuI2EyBYJGHS7nub79Yh0=
+github.com/sacloud/go-http v0.1.6 h1:lJGXDt9xrxJiDszRPaN9NIP8MVj10YKMzmnyzdSfI8w=
+github.com/sacloud/go-http v0.1.6/go.mod h1:oLAHoDJRkptf8sq4fE8oERLkdCh0kJWfWu+paoJY7I0=
 github.com/sacloud/packages-go v0.0.8 h1:9l1XrukLdLPd6l/y2et9foQK2Z00ZQEGCInZMRGivAA=
 github.com/sacloud/packages-go v0.0.8/go.mod h1:btPji+wtZ+Pk7MeCy+zo61o5IziBoLdHIrdGiYq9Kb8=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=

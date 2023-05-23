@@ -6,7 +6,7 @@ require (
 	github.com/hashicorp/go-retryablehttp v0.7.2
 	github.com/sacloud/go-http v0.1.5
 	github.com/sacloud/packages-go v0.0.8
-	github.com/stretchr/testify v1.8.2
+	github.com/stretchr/testify v1.8.3
 )
 
 require (

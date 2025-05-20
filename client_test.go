@@ -58,3 +58,51 @@ func TestClient(t *testing.T) {
 
 	require.EqualValues(t, "is1a", zoneInfo["Name"])
 }
+
+func TestNewClient(t *testing.T) {
+	c, err := client.NewClient("https://secure.sakura.ad.jp/cloud/zone/is1a/api/cloud/1.1/zone/is1a")
+	if err != nil {
+		t.Skip(err)
+	}
+	if c.Options().AccessToken == "" || c.Options().AccessTokenSecret == "" {
+		t.Skip("required: SAKURACLOUD_ACCESS_TOKEN, SAKURACLOUD_ACCESS_TOKEN_SECRET")
+	}
+
+	// クライアントからHttpRequestDoerを生成
+	doer := c.NewHttpRequestDoer()
+	req, _ := http.NewRequest(http.MethodGet, c.ServerURL(), nil)
+	resp, err := doer.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	data, _ := io.ReadAll(resp.Body)
+
+	var responseData map[string]interface{}
+	json.Unmarshal(data, &responseData) //nolint
+
+	zoneInfo := responseData["Zone"].(map[string]interface{})
+	require.EqualValues(t, "is1a", zoneInfo["Name"])
+}
+
+func TestNewClientWithArgs(t *testing.T) {
+	c, err := client.NewClient("http://127.0.0.1/",
+		client.WithApiKeys("foo", "bar"),
+		client.WithUserAgent("TestAgent"),
+		client.WithProfile("profileName"), // これは実際には呼ばれないがWithProfileが動いてるのをチェック
+		client.WithDisableEnv(true),
+		client.WithDisableProfile(true),
+		client.WithOptions(&client.Options{HttpRequestTimeout: 100}),
+	)
+	if err != nil {
+		t.Skip(err)
+	}
+	opts := c.Options()
+
+	require.EqualValues(t, "http://127.0.0.1/", c.APIRootURL)
+	require.EqualValues(t, "foo", opts.AccessToken)
+	require.EqualValues(t, "bar", opts.AccessTokenSecret)
+	require.EqualValues(t, "TestAgent", opts.UserAgent)
+	require.EqualValues(t, 100, opts.HttpRequestTimeout)
+}

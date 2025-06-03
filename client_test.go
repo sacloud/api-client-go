@@ -52,7 +52,7 @@ func TestClient(t *testing.T) {
 	data, _ := io.ReadAll(resp.Body)
 
 	var responseData map[string]interface{}
-	json.Unmarshal(data, &responseData) //nolint
+	json.Unmarshal(data, &responseData)
 
 	zoneInfo := responseData["Zone"].(map[string]interface{})
 
@@ -80,7 +80,7 @@ func TestNewClient(t *testing.T) {
 	data, _ := io.ReadAll(resp.Body)
 
 	var responseData map[string]interface{}
-	json.Unmarshal(data, &responseData) //nolint
+	json.Unmarshal(data, &responseData)
 
 	zoneInfo := responseData["Zone"].(map[string]interface{})
 	require.EqualValues(t, "is1a", zoneInfo["Name"])

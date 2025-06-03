@@ -1,30 +1,41 @@
+version: "2"
 run:
-  deadline: 10m10s
+  timeout: 10m10s
 
 issues:
-  max-per-linter: 0
+  max-issues-per-linter: 0
   max-same-issues: 0
 
 linters:
-  disable-all: true
+  default: none
   enable:
     - errcheck
-    - exportloopref
     - gocritic
-    - gofmt
-    - goimports
     - goprintffuncname
     - gosec
-    - gosimple
     - govet
     - ineffassign
     - misspell
     - nakedret
     - nolintlint
-    - typecheck
     - unconvert
     - unused
     - whitespace
+  settings:
+    gosec:
+      config:
+        G301: "0755"
+  exclusions:
+    rules:
+      - path: _test\.go
+        text: "Error return value of `.*` is not checked" # for intentional defer cleanup
+      - path: _test\.go
+        text: "G104: Errors unhandled" # for intentional defer cleanup
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
 
   # don't enable:
   #  - asciicheck
@@ -44,9 +55,9 @@ linters:
   #  - lll
   #  - prealloc
   #  - revive
+  #  - stylecheck
   #  - staticcheck
   #  - structcheck
-  #  - stylecheck
   #  - testpackage
   #  - unparam
   #  - wsl

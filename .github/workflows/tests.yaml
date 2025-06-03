@@ -51,6 +51,10 @@ jobs:
           export GOROOT
           make lint-go
 
+      - name: make vulncheck
+        run:  |
+          make vulncheck
+
   test:
     name: test
     runs-on: ubuntu-latest

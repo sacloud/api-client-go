@@ -239,7 +239,7 @@ func Save(profileName string, val interface{}) error {
 
 	// merge new value if current config exists
 	if _, err := os.Stat(path); err == nil {
-		currentData, err := os.ReadFile(path)
+		currentData, err := os.ReadFile(filepath.Clean(path))
 		if err != nil {
 			return fmt.Errorf("reading current config %q failed: %s", path, err)
 		}
@@ -287,7 +287,7 @@ func Load(profileName string, configValue interface{}) error {
 	// file exists?
 	if _, err := os.Stat(filePath); err == nil {
 		// read file
-		buf, err := os.ReadFile(filePath)
+		buf, err := os.ReadFile(filepath.Clean(filePath))
 		if err != nil {
 			return fmt.Errorf("loading config from %q is failed: %s", filePath, err)
 		}
@@ -359,7 +359,7 @@ func CurrentName() (string, error) {
 
 	profNameFile := filepath.Join(baseDir, configDirName, currentFileName)
 	if _, err := os.Stat(profNameFile); err == nil {
-		data, err := os.ReadFile(profNameFile)
+		data, err := os.ReadFile(filepath.Clean(profNameFile))
 		if err != nil {
 			return "", fmt.Errorf("reading current profile is failed: %s", err)
 		}

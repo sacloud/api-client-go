@@ -54,7 +54,7 @@
 ## [v0.2.3](https://github.com/sacloud/api-client-go/compare/v0.2.2...v0.2.3) - 2022-10-13
 - go: bump github.com/sacloud/packages-go from 0.0.5 to 0.0.6 by @dependabot in https://github.com/sacloud/api-client-go/pull/24
 - go: bump github.com/sacloud/go-http from 0.1.2 to 0.1.3 by @dependabot in https://github.com/sacloud/api-client-go/pull/25
-- プロファイル決定時に環境変数が読まれないことがある問題を修正 by @yamamoto-febc in https://github.com/sacloud/api-client-go/pull/26
+- プロファイル決定時に環境変数が読まれないこともある問題を修正 by @yamamoto-febc in https://github.com/sacloud/api-client-go/pull/26
 
 ## [v0.2.2](https://github.com/sacloud/api-client-go/compare/v0.2.1...v0.2.2) - 2022-10-03
 - go 1.19 by @yamamoto-febc in https://github.com/sacloud/api-client-go/pull/22

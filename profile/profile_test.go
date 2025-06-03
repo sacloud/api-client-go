@@ -236,7 +236,7 @@ func Test_LoadWithExtendedConfig(t *testing.T) {
 
 func initConfigFiles() func() {
 	p := "/tmp/.usacloud"
-	os.MkdirAll(p, 0700) //nolint
+	os.MkdirAll(p, 0700)
 	os.Setenv(DirectoryNameEnv, p)
 
 	for _, prof := range testTargetProfiles() {
@@ -270,7 +270,7 @@ func Test_CurrentName(t *testing.T) {
 	configDir := filepath.Join(homeDir, configDirName)
 	profNameFile := filepath.Join(homeDir, configDirName, currentFileName)
 
-	os.Mkdir(configDir, 0755) //nolint
+	os.Mkdir(configDir, 0755)
 	os.Remove(profNameFile)
 	defer func() {
 		os.Remove(profNameFile)
@@ -316,7 +316,7 @@ func Test_SetCurrentName(t *testing.T) {
 	configDir := filepath.Join(homeDir, configDirName)
 	profNameFile := filepath.Join(homeDir, configDirName, currentFileName)
 
-	os.Mkdir(configDir, 0755) //nolint
+	os.Mkdir(configDir, 0755)
 	os.Remove(profNameFile)
 	defer func() {
 		os.Remove(profNameFile)
@@ -334,7 +334,7 @@ func Test_SetCurrentName(t *testing.T) {
 		err = SetCurrentName("default")
 		require.NoError(t, err)
 
-		data, err := os.ReadFile(profNameFile)
+		data, err := os.ReadFile(filepath.Clean(profNameFile))
 		require.NoError(t, err)
 		require.Equal(t, "default", string(data))
 	})
@@ -345,7 +345,7 @@ func Test_SetCurrentName(t *testing.T) {
 		err = SetCurrentName("for-usacloud-unit-test1")
 		require.NoError(t, err)
 
-		data, err := os.ReadFile(profNameFile)
+		data, err := os.ReadFile(filepath.Clean(profNameFile))
 		require.NoError(t, err)
 		require.Equal(t, "for-usacloud-unit-test1", string(data))
 	})
@@ -359,7 +359,7 @@ func Test_SetCurrentName(t *testing.T) {
 		err = SetCurrentName("not-exists")
 		require.Error(t, err)
 
-		data, err := os.ReadFile(profNameFile)
+		data, err := os.ReadFile(filepath.Clean(profNameFile))
 		require.NoError(t, err)
 		require.Equal(t, "for-usacloud-unit-test1", string(data))
 	})
@@ -450,7 +450,7 @@ func Test_Save(t *testing.T) {
 		targetFile, err := ConfigFilePath(testProfileName)
 		require.NoError(t, err)
 
-		data, err := os.ReadFile(targetFile)
+		data, err := os.ReadFile(filepath.Clean(targetFile))
 		require.NoError(t, err)
 
 		var mapData map[string]interface{}

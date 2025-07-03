@@ -24,7 +24,7 @@ func (e *XXXAPIError) Unwrap() error {
 	return e.Err
 }
 
-func TestAPIError_Error(t *testing.T) {
+func TestAPIError(t *testing.T) {
 	err := &client.APIError{
 		Code:    http.StatusNotFound,
 		Message: "not found",
@@ -35,9 +35,15 @@ func TestAPIError_Error(t *testing.T) {
 
 	// Unwrap
 	assert.Equal(t, "wrapped error", errors.Unwrap(err).Error())
+
+	err2 := client.NewAPIError(http.StatusBadRequest, "", nil)
+	require.Equal(t, "API Error 400 - Bad Request", err2.Error())
+	assert.False(t, client.IsNotFoundError(err2))
 }
 
 func TestXXXAPIError_IsNotFoundError(t *testing.T) {
+	// Test with wrapped APIError
+
 	assert.False(t, client.IsNotFoundError(nil))
 
 	xerr := &XXXAPIError{

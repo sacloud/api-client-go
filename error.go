@@ -28,11 +28,29 @@ type APIError struct {
 }
 
 func (e *APIError) Error() string {
-	return fmt.Sprintf("API Error %d - %s: %s", e.Code, e.Message, e.Err.Error())
+	if e.Err == nil {
+		return fmt.Sprintf("API Error %d - %s", e.Code, e.Message)
+	} else {
+		return fmt.Sprintf("API Error %d - %s: %s", e.Code, e.Message, e.Err.Error())
+	}
 }
 
 func (e *APIError) Unwrap() error {
 	return e.Err
+}
+
+func NewAPIError(code int, msg string, err error) *APIError {
+	if len(msg) == 0 {
+		msg = http.StatusText(code)
+		if msg == "" { // client uses 0 for unknown error
+			msg = "unknown error"
+		}
+	}
+	return &APIError{
+		Code:    code,
+		Message: msg,
+		Err:     err,
+	}
 }
 
 func IsNotFoundError(err error) bool {

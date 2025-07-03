@@ -3,7 +3,7 @@ module github.com/sacloud/api-client-go
 go 1.23
 
 require (
-	github.com/hashicorp/go-retryablehttp v0.7.7
+	github.com/hashicorp/go-retryablehttp v0.7.8
 	github.com/sacloud/go-http v0.1.9
 	github.com/sacloud/packages-go v0.0.10
 	github.com/stretchr/testify v1.10.0

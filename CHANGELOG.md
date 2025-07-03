@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.3.2](https://github.com/sacloud/api-client-go/compare/v0.3.1...v0.3.2) - 2025-07-03
+- Improve APIError related functions by @repeatedly in https://github.com/sacloud/api-client-go/pull/73
+
 ## [v0.3.1](https://github.com/sacloud/api-client-go/compare/v0.3.0...v0.3.1) - 2025-07-03
 - リポジトリ内の環境更新 by @repeatedly in https://github.com/sacloud/api-client-go/pull/69
 - Add APIError to handle API related error in each client by @repeatedly in https://github.com/sacloud/api-client-go/pull/72

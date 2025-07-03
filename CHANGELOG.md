@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.3.1](https://github.com/sacloud/api-client-go/compare/v0.3.0...v0.3.1) - 2025-07-03
+- リポジトリ内の環境更新 by @repeatedly in https://github.com/sacloud/api-client-go/pull/69
+- Add APIError to handle API related error in each client by @repeatedly in https://github.com/sacloud/api-client-go/pull/72
+- go: bump github.com/hashicorp/go-retryablehttp from 0.7.7 to 0.7.8 by @dependabot in https://github.com/sacloud/api-client-go/pull/71
+- go: bump github.com/sacloud/packages-go from 0.0.10 to 0.0.11 by @dependabot in https://github.com/sacloud/api-client-go/pull/63
+
 ## [v0.3.0](https://github.com/sacloud/api-client-go/compare/v0.2.10...v0.3.0) - 2025-05-20
 - go: bump github.com/sacloud/packages-go from 0.0.9 to 0.0.10 by @dependabot in https://github.com/sacloud/api-client-go/pull/54
 - update dependencies by @yamamoto-febc in https://github.com/sacloud/api-client-go/pull/56

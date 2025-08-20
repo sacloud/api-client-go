@@ -18,6 +18,7 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"net/http/httptest"
 	"testing"
 
 	client "github.com/sacloud/api-client-go"
@@ -105,4 +106,35 @@ func TestNewClientWithArgs(t *testing.T) {
 	require.EqualValues(t, "bar", opts.AccessTokenSecret)
 	require.EqualValues(t, "TestAgent", opts.UserAgent)
 	require.EqualValues(t, 100, opts.HttpRequestTimeout)
+}
+
+func TestNewClientWithHTTPClient(t *testing.T) {
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(`{"Zone": {"Name": "testzone"}}`))
+	}))
+	t.Cleanup(ts.Close)
+
+	c, err := client.NewClient(ts.URL,
+		client.WithApiKeys("foo", "bar"),
+		client.WithUserAgent("TestAgent"),
+		client.WithDisableEnv(true),
+		client.WithDisableProfile(true),
+		client.WithHTTPClient(ts.Client()),
+	)
+	require.NoError(t, err)
+
+	doer := c.NewHttpRequestDoer()
+	req, _ := http.NewRequest(http.MethodGet, c.ServerURL(), nil)
+	resp, err := doer.Do(req)
+	require.NoError(t, err)
+	defer resp.Body.Close()
+
+	data, _ := io.ReadAll(resp.Body)
+	var responseData map[string]interface{}
+	json.Unmarshal(data, &responseData)
+	zoneInfo, ok := responseData["Zone"].(map[string]interface{})
+	require.True(t, ok, "Zone key should exist in response")
+	require.EqualValues(t, "testzone", zoneInfo["Name"])
 }

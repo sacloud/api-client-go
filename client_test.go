@@ -131,9 +131,11 @@ func TestNewClientWithHTTPClient(t *testing.T) {
 	require.NoError(t, err)
 	defer resp.Body.Close()
 
-	data, _ := io.ReadAll(resp.Body)
+	data, err := io.ReadAll(resp.Body)
+	require.NoError(t, err)
 	var responseData map[string]interface{}
-	json.Unmarshal(data, &responseData)
+	err = json.Unmarshal(data, &responseData)
+	require.NoError(t, err)
 	zoneInfo, ok := responseData["Zone"].(map[string]interface{})
 	require.True(t, ok, "Zone key should exist in response")
 	require.EqualValues(t, "testzone", zoneInfo["Name"])

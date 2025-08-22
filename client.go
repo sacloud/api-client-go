@@ -16,6 +16,7 @@ package client
 
 import (
 	"fmt"
+	"net/http"
 	"runtime"
 	"strings"
 	"sync"
@@ -92,6 +93,13 @@ func (c *Client) init(params *ClientParams) error {
 			AccessTokenSecret: params.Secret,
 		})
 
+		// 6: Custom HTTP client (for httptest)
+		if params.HTTPClient != nil {
+			opts = append(opts, &Options{
+				HttpClient: params.HTTPClient,
+			})
+		}
+
 		c.factory = NewFactory(opts...)
 	})
 	return initError
@@ -114,6 +122,8 @@ type ClientParams struct {
 	DisableProfile bool
 	// 環境変数からの設定読み取りを無効化
 	DisableEnv bool
+	// カスタムHTTPクライアント (例: httptest.NewServer().Client())
+	HTTPClient *http.Client
 	// SDKライブラリから追加したいパラメータがあったら随時追加
 }
 
@@ -153,6 +163,13 @@ func WithDisableEnv(disable bool) ClientParam {
 func WithOptions(options *Options) ClientParam {
 	return func(params *ClientParams) {
 		params.Options = options
+	}
+}
+
+// WithHTTPClient allows setting a custom http.Client (e.g., from httptest)
+func WithHTTPClient(client *http.Client) ClientParam {
+	return func(params *ClientParams) {
+		params.HTTPClient = client
 	}
 }
 

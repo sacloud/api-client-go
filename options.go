@@ -87,7 +87,7 @@ func (o *Options) ProfileConfigValue() *profile.ConfigValue {
 
 // DefaultOption 環境変数、プロファイルからCallerOptionsを組み立てて返す
 //
-// プロファイルは環境変数`SAKURACLOUD_PROFILE`または`USACLOUD_PROFILE`でプロファイル名が指定されていればそちらを優先し、
+// プロファイルは環境変数`SAKURA_PROFILE`または`SAKURACLOUD_PROFILE`/`USACLOUD_PROFILE`でプロファイル名が指定されていればそちらを優先し、
 // 未指定の場合は通常のプロファイル処理(~/.usacloud/currentファイルから読み込み)される。
 // 同じ項目を複数箇所で指定していた場合、環境変数->プロファイルの順で上書きされたものが返される
 func DefaultOption() (*Options, error) {
@@ -96,7 +96,7 @@ func DefaultOption() (*Options, error) {
 
 // DefaultOptionWithProfile 環境変数、プロファイルからCallerOptionsを組み立てて返す
 //
-// プロファイルは引数を優先し、空の場合は環境変数`SAKURACLOUD_PROFILE`または`USACLOUD_PROFILE`が利用され、
+// プロファイルは引数を優先し、空の場合は環境変数`SAKURA_PROFILE`または`SAKURACLOUD_PROFILE`/`USACLOUD_PROFILE`が利用され、
 // それも空の場合は通常のプロファイル処理(~/.usacloud/currentファイルから読み込み)される。
 // 同じ項目を複数箇所で指定していた場合、環境変数->プロファイルの順で上書きされたものが返される
 func DefaultOptionWithProfile(profileName string) (*Options, error) {
@@ -180,32 +180,31 @@ func MergeOptions(opts ...*Options) *Options {
 // OptionsFromEnv 環境変数からCallerOptionsを組み立てて返す
 func OptionsFromEnv() *Options {
 	return &Options{
-		AccessToken:       envvar.StringFromEnv("SAKURACLOUD_ACCESS_TOKEN", ""),
-		AccessTokenSecret: envvar.StringFromEnv("SAKURACLOUD_ACCESS_TOKEN_SECRET", ""),
+		AccessToken:       envvar.StringFromEnvMulti([]string{"SAKURACLOUD_ACCESS_TOKEN", "SAKURA_ACCESS_TOKEN"}, ""),
+		AccessTokenSecret: envvar.StringFromEnvMulti([]string{"SAKURACLOUD_ACCESS_TOKEN_SECRET", "SAKURA_ACCESS_TOKEN_SECRET"}, ""),
 
-		AcceptLanguage: envvar.StringFromEnv("SAKURACLOUD_ACCEPT_LANGUAGE", ""),
-		Gzip:           envvar.StringFromEnv("SAKURACLOUD_GZIP", "") != "",
+		AcceptLanguage: envvar.StringFromEnvMulti([]string{"SAKURACLOUD_ACCEPT_LANGUAGE", "SAKURA_ACCEPT_LANGUAGE"}, ""),
+		Gzip:           envvar.StringFromEnvMulti([]string{"SAKURACLOUD_GZIP", "SAKURA_GZIP"}, "") != "",
 
-		HttpRequestTimeout:   envvar.IntFromEnv("SAKURACLOUD_API_REQUEST_TIMEOUT", 0),
-		HttpRequestRateLimit: envvar.IntFromEnv("SAKURACLOUD_API_REQUEST_RATE_LIMIT", 0),
+		HttpRequestTimeout:   envvar.IntFromEnvMulti([]string{"SAKURACLOUD_API_REQUEST_TIMEOUT", "SAKURA_API_REQUEST_TIMEOUT"}, 0),
+		HttpRequestRateLimit: envvar.IntFromEnvMulti([]string{"SAKURACLOUD_API_REQUEST_RATE_LIMIT", "SAKURA_API_REQUEST_RATE_LIMIT"}, 0),
 
-		RetryMax:     envvar.IntFromEnv("SAKURACLOUD_RETRY_MAX", 0),
-		RetryWaitMax: envvar.IntFromEnv("SAKURACLOUD_RETRY_WAIT_MAX", 0),
-		RetryWaitMin: envvar.IntFromEnv("SAKURACLOUD_RETRY_WAIT_MIN", 0),
-
-		Trace:          envvar.StringFromEnv("SAKURACLOUD_TRACE", "") != "",
-		TraceOnlyError: strings.ToLower(envvar.StringFromEnv("SAKURACLOUD_TRACE", "")) == "error",
+		RetryMax:       envvar.IntFromEnvMulti([]string{"SAKURACLOUD_RETRY_MAX", "SAKURA_RETRY_MAX"}, 0),
+		RetryWaitMax:   envvar.IntFromEnvMulti([]string{"SAKURACLOUD_RETRY_WAIT_MAX", "SAKURA_RETRY_WAIT_MAX"}, 0),
+		RetryWaitMin:   envvar.IntFromEnvMulti([]string{"SAKURACLOUD_RETRY_WAIT_MIN", "SAKURA_RETRY_WAIT_MIN"}, 0),
+		Trace:          envvar.StringFromEnvMulti([]string{"SAKURACLOUD_TRACE", "SAKURA_TRACE"}, "") != "",
+		TraceOnlyError: strings.ToLower(envvar.StringFromEnvMulti([]string{"SAKURACLOUD_TRACE", "SAKURA_TRACE"}, "")) == "error",
 	}
 }
 
 // OptionsFromProfile 指定のプロファイルからCallerOptionsを組み立てて返す
 //
-// プロファイルは引数を優先し、空の場合は環境変数`SAKURACLOUD_PROFILE`または`USACLOUD_PROFILE`が利用され、
+// プロファイルは引数を優先し、空の場合は環境変数`SAKURA_PROFILE`または`SAKURACLOUD_PROFILE`/`USACLOUD_PROFILE`が利用され、
 // それも空の場合は通常のプロファイル処理(~/.usacloud/currentファイルから読み込み)される。
 func OptionsFromProfile(profileName string) (*Options, error) {
 	// 引数がからの場合はまず環境変数から
 	if profileName == "" {
-		profileName = envvar.StringFromEnvMulti([]string{"SAKURACLOUD_PROFILE", "USACLOUD_PROFILE"}, "")
+		profileName = envvar.StringFromEnvMulti([]string{"SAKURA_PROFILE", "SAKURACLOUD_PROFILE", "USACLOUD_PROFILE"}, "")
 	}
 	// それも空ならプロファイルのcurrentファイルから
 	if profileName == "" {

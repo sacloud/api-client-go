@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.3.4](https://github.com/sacloud/api-client-go/compare/v0.3.3...v0.3.4) - 2025-12-15
+- github: update os matrix by @repeatedly in https://github.com/sacloud/api-client-go/pull/79
+- Support `SAKURA_` prefix in envvar name by @repeatedly in https://github.com/sacloud/api-client-go/pull/84
+
 ## [v0.3.3](https://github.com/sacloud/api-client-go/compare/v0.3.2...v0.3.3) - 2025-08-22
 - custom HTTP client by @shyouhei in https://github.com/sacloud/api-client-go/pull/76
 - ci: bump actions/checkout from 4 to 5 by @dependabot in https://github.com/sacloud/api-client-go/pull/75

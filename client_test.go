@@ -32,7 +32,7 @@ func TestClient(t *testing.T) {
 	// 環境変数/プロファイルを読み込んでオプションを組み立てる
 	opt, _ := client.DefaultOption()
 	if opt.AccessToken == "" || opt.AccessTokenSecret == "" {
-		t.Skip("required: SAKURACLOUD_ACCESS_TOKEN, SAKURACLOUD_ACCESS_TOKEN_SECRET")
+		t.Skip("required: SAKURA_ACCESS_TOKEN/SAKURA_ACCESS_TOKEN_SECRET or SAKURACLOUD_ACCESS_TOKEN/SAKURACLOUD_ACCESS_TOKEN_SECRET")
 	}
 
 	// オプションからファクトリー生成
@@ -66,7 +66,7 @@ func TestNewClient(t *testing.T) {
 		t.Skip(err)
 	}
 	if c.Options().AccessToken == "" || c.Options().AccessTokenSecret == "" {
-		t.Skip("required: SAKURACLOUD_ACCESS_TOKEN, SAKURACLOUD_ACCESS_TOKEN_SECRET")
+		t.Skip("required: SAKURA_ACCESS_TOKEN/SAKURA_ACCESS_TOKEN_SECRET or SAKURACLOUD_ACCESS_TOKEN/SAKURACLOUD_ACCESS_TOKEN_SECRET")
 	}
 
 	// クライアントからHttpRequestDoerを生成

@@ -60,6 +60,17 @@ func Test_baseDir(t *testing.T) {
 			require.EqualValues(t, testDir, baseDir)
 		})
 
+		t.Run("valid with old env name", func(t *testing.T) {
+			testDir := "/test"
+			err := os.Setenv(DirectoryNameEnvOld1, testDir)
+			require.NoError(t, err)
+
+			baseDir, err := baseDir()
+			require.NoError(t, err)
+
+			require.EqualValues(t, testDir, baseDir)
+		})
+
 		t.Run("redundant path", func(t *testing.T) {
 			testDir := "/test/../test1/../test"
 			expect := "/test"

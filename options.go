@@ -180,20 +180,19 @@ func MergeOptions(opts ...*Options) *Options {
 // OptionsFromEnv 環境変数からCallerOptionsを組み立てて返す
 func OptionsFromEnv() *Options {
 	return &Options{
-		AccessToken:       envvar.StringFromEnvMulti([]string{"SAKURACLOUD_ACCESS_TOKEN", "SAKURA_ACCESS_TOKEN"}, ""),
-		AccessTokenSecret: envvar.StringFromEnvMulti([]string{"SAKURACLOUD_ACCESS_TOKEN_SECRET", "SAKURA_ACCESS_TOKEN_SECRET"}, ""),
+		AccessToken:       envvar.StringFromEnvMulti([]string{"SAKURA_ACCESS_TOKEN", "SAKURACLOUD_ACCESS_TOKEN"}, ""),
+		AccessTokenSecret: envvar.StringFromEnvMulti([]string{"SAKURA_ACCESS_TOKEN_SECRET", "SAKURACLOUD_ACCESS_TOKEN_SECRET"}, ""),
 
-		AcceptLanguage: envvar.StringFromEnvMulti([]string{"SAKURACLOUD_ACCEPT_LANGUAGE", "SAKURA_ACCEPT_LANGUAGE"}, ""),
-		Gzip:           envvar.StringFromEnvMulti([]string{"SAKURACLOUD_GZIP", "SAKURA_GZIP"}, "") != "",
+		AcceptLanguage:       envvar.StringFromEnvMulti([]string{"SAKURA_ACCEPT_LANGUAGE", "SAKURACLOUD_ACCEPT_LANGUAGE"}, ""),
+		Gzip:                 envvar.StringFromEnvMulti([]string{"SAKURA_GZIP", "SAKURACLOUD_GZIP"}, "") != "",
+		HttpRequestTimeout:   envvar.IntFromEnvMulti([]string{"SAKURA_API_REQUEST_TIMEOUT", "SAKURACLOUD_API_REQUEST_TIMEOUT"}, 0),
+		HttpRequestRateLimit: envvar.IntFromEnvMulti([]string{"SAKURA_API_REQUEST_RATE_LIMIT", "SAKURACLOUD_API_REQUEST_RATE_LIMIT"}, 0),
 
-		HttpRequestTimeout:   envvar.IntFromEnvMulti([]string{"SAKURACLOUD_API_REQUEST_TIMEOUT", "SAKURA_API_REQUEST_TIMEOUT"}, 0),
-		HttpRequestRateLimit: envvar.IntFromEnvMulti([]string{"SAKURACLOUD_API_REQUEST_RATE_LIMIT", "SAKURA_API_REQUEST_RATE_LIMIT"}, 0),
-
-		RetryMax:       envvar.IntFromEnvMulti([]string{"SAKURACLOUD_RETRY_MAX", "SAKURA_RETRY_MAX"}, 0),
-		RetryWaitMax:   envvar.IntFromEnvMulti([]string{"SAKURACLOUD_RETRY_WAIT_MAX", "SAKURA_RETRY_WAIT_MAX"}, 0),
-		RetryWaitMin:   envvar.IntFromEnvMulti([]string{"SAKURACLOUD_RETRY_WAIT_MIN", "SAKURA_RETRY_WAIT_MIN"}, 0),
-		Trace:          envvar.StringFromEnvMulti([]string{"SAKURACLOUD_TRACE", "SAKURA_TRACE"}, "") != "",
-		TraceOnlyError: strings.ToLower(envvar.StringFromEnvMulti([]string{"SAKURACLOUD_TRACE", "SAKURA_TRACE"}, "")) == "error",
+		RetryMax:       envvar.IntFromEnvMulti([]string{"SAKURA_RETRY_MAX", "SAKURACLOUD_RETRY_MAX"}, 0),
+		RetryWaitMax:   envvar.IntFromEnvMulti([]string{"SAKURA_RETRY_WAIT_MAX", "SAKURACLOUD_RETRY_WAIT_MAX"}, 0),
+		RetryWaitMin:   envvar.IntFromEnvMulti([]string{"SAKURA_RETRY_WAIT_MIN", "SAKURACLOUD_RETRY_WAIT_MIN"}, 0),
+		Trace:          envvar.StringFromEnvMulti([]string{"SAKURA_TRACE", "SAKURACLOUD_TRACE"}, "") != "",
+		TraceOnlyError: strings.ToLower(envvar.StringFromEnvMulti([]string{"SAKURA_TRACE", "SAKURACLOUD_TRACE"}, "")) == "error",
 	}
 }
 

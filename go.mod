@@ -1,6 +1,8 @@
 module github.com/sacloud/api-client-go
 
-go 1.25
+go 1.24.0
+
+toolchain go1.25.5
 
 require (
 	github.com/hashicorp/go-retryablehttp v0.7.8

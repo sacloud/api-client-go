@@ -58,6 +58,11 @@ jobs:
   test:
     name: test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version:
+          - stable
+          - oldstable
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -68,7 +73,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: 'go.mod'
+          go-version: ${{ matrix.go-version }}
 
       - name: Setup tools
         run: |

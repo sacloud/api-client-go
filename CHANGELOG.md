@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.3.5](https://github.com/sacloud/api-client-go/compare/v0.3.4...v0.3.5) - 2026-01-05
+- separate go line and toolchain line by @shyouhei in https://github.com/sacloud/api-client-go/pull/87
+
 ## [v0.3.4](https://github.com/sacloud/api-client-go/compare/v0.3.3...v0.3.4) - 2025-12-15
 - github: update os matrix by @repeatedly in https://github.com/sacloud/api-client-go/pull/79
 - Support `SAKURA_` prefix in envvar name by @repeatedly in https://github.com/sacloud/api-client-go/pull/84

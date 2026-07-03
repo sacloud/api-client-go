@@ -1,3 +1,5 @@
+// Deprecated: This module has moved to github.com/sacloud/sacloud-sdk-go.
+// Please migrate to that module. This repository will be archived.
 module github.com/sacloud/api-client-go
 
 go 1.24.0

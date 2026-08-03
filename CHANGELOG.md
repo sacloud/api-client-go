@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.3.6](https://github.com/sacloud/api-client-go/compare/v0.3.5...v0.3.6) - 2026-08-03
+
+- update README for repository transition by @shyouhei in https://github.com/sacloud/api-client-go/pull/90
+
 ## [v0.3.5](https://github.com/sacloud/api-client-go/compare/v0.3.4...v0.3.5) - 2026-01-05
 - separate go line and toolchain line by @shyouhei in https://github.com/sacloud/api-client-go/pull/87
 

@@ -17,4 +17,4 @@
 package client
 
 // Version バージョン
-const Version = "0.3.5"
+const Version = "0.3.6"
